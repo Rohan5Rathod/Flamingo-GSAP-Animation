@@ -1,36 +1,39 @@
-gsap.registerPlugin(ScrollTrigger);
+var tl = gsap.timeline();
 
-const splitTypes = document.querySelectorAll('.reveal_type');
-
-splitTypes.forEach((char, i) => {
-  const text = new SplitType(char, { types: 'chars' });
-
-  gsap.from(text.chars,{
-    scrollTrigger:{
-      trigger:char,
-      start:"top 100%",
-      end:"top 20%",
-      scrub:true,
-    },
-    scaleY:0,
-    y:20,
-    opacity:0.2,
-    TransformOrigin:"bottom",
+tl.from("#section",{
+    stagger:.3,
+    width:0,
+    duration:2,
     opacity:0,
-    stagger:0.1,
-  })
+    ease:'Expo.easeInOut',
 })
-
-  
-const lenis = new Lenis();
-
-lenis.on('scroll', (e) => {
-  console.log(e);
-});
-
-function raf(time) {
-  lenis.raf(time);
-  requestAnimationFrame(raf);
-}
-
-requestAnimationFrame(raf);
+.from("nav a",{
+    stagger:.1,
+    x:30,
+    duration:1.5,
+    opacity:0,
+    ease:'Expo.easeInOut',
+},'-=1')
+.from(".circle",{
+    rotation:"90deg",
+    opacity:0,
+    duration:2,
+    ease:'Expo.easeInOut',
+},'-=2')
+.from(".vmcircle",{
+    rotation:"-90deg",
+    duration:1,
+    ease:'Expo.easeInOut',
+},'-=.5')
+.from(".circle img",{
+    y:800,
+    duration:1.5,
+    ease:'Expo.easeInOut',
+},'-=1')
+.from(".list .elem",{
+    opacity:0,
+    stagger:.2,
+    y:60,
+    duration:3,
+    ease:'Expo.easeInOut',
+},'-=3')
